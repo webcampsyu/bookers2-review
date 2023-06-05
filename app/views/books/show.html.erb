@@ -1,0 +1,4 @@
+<%= @book.title %>
+<%= @book.body %>
+<% if @book.user == current_user %> <!--投稿者とログイン中のユーザが一緒か判定-->
+<%= link_to "削除", book_path(@book), method: :delete %>
