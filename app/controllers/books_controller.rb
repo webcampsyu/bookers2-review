@@ -4,8 +4,13 @@ class BooksController < ApplicationController
   def create
     @book = Book.new(book_params) #投稿するデータをBookモデルに紐づくデータとして保存する準備をしていてフォームに入力された(title,body)が@bookに格納される
     @book.user_id = current_user.id #投稿者id(@book.user_id)をログイン中のユーザのidを持たせる
-    @book.save
-    redirect_to books_path
+    if @book.save
+     redirect_to books_path
+    else 
+     @books = Book.all
+     @user = User.find(current_user.id)
+     render :index
+    end 
   end 
   
 
@@ -17,6 +22,8 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find(params[:id])
+    @user = @book.user
+    @book_comment = BookComment.new #コメントを投稿するためのインスタンス変数
   end
   
   def destroy

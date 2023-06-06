@@ -9,6 +9,14 @@ class User < ApplicationRecord
   #複数のBookモデルと関連付けるために複数形
   has_many :books, dependent: :destroy
   
+  #BookCommentモデルとのアソシエーション
+  #1人のユーザが複数コメントできる(1:N)
+  has_many :book_comments, dependent: :destroy
+  
+  #Favoriteモデルとのアソシエーション
+  #1人のユーザが複数のいいねができる(1:N)
+  has_many :favorites, dependent: :destroy
+  
   #プロフィール画像を保存できるように設定
   has_one_attached :profile_image
   
